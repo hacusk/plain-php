@@ -1,0 +1,15 @@
+services:
+  app:
+    build: ./container/app
+    tty: true
+    volumes:
+      - ./src:/var/www/html
+  web:
+    image: nginx:1.27-alpine
+    ports:
+      - 8000:80
+    volumes:
+      - ./src:/var/www/html
+      - ./container/web/conf:/etc/nginx/conf.d
+    depends_on:
+      - app
